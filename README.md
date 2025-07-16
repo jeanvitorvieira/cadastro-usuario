@@ -24,7 +24,7 @@ Para executar localmente:
 1.  **Clone o repositório:**
 
     ```bash
-    git clone [https://github.com/jeanvitorvieira/cadastro-usuario.git](https://github.com/jeanvitorvieira/cadastro-usuario.git)
+    git clone https://github.com/jeanvitorvieira/cadastro-usuario.git
     ```
 2.  **Navegue até o diretório do projeto:**
    
