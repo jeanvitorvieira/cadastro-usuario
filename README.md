@@ -2,7 +2,7 @@
 
 Este projeto é uma aplicação CRUD (Create, Read, Update, Delete) desenvolvida em Java com Spring Boot. Demonstra operações básicas de persistência de dados para cadastro de usuários.
 
-### 🔧 Tecnologias Utilizadas:
+## 🔧 Tecnologias Utilizadas:
 
 * **Java 24 (JDK 24):** Plataforma Java.
 * **Spring Boot:** Framework para desenvolvimento de aplicações Java autônomas.
@@ -11,13 +11,13 @@ Este projeto é uma aplicação CRUD (Create, Read, Update, Delete) desenvolvida
 * **Lombok:** Biblioteca para redução de código boilerplate em classes Java.
 * **Maven:** Ferramenta de automação de construção e gerenciamento de dependências.
 
-### 📚 Este projeto aborda:
+## 📚 Este projeto aborda:
 
 * **Estrutura de projeto Spring Boot:** Organização de pacotes, classes e configurações.
 * **CRUD na prática:** Implementação das operações fundamentais (Create, Read, Update, Delete) para gerenciamento de dados.
 * **Configuração de banco de dados H2:** Integração e uso do H2 em aplicações Spring Boot.
 
-### 🚀 Começando
+## 🚀 Começando
 
 Para executar localmente:
 
@@ -41,8 +41,10 @@ A aplicação estará disponível em `http://localhost:8081`. O console exibirá
 
 ---
 
-### 🔗 Repositório Original
+## Autor
+### Jean Vitor Vieira
+Linkedin:
+https://www.linkedin.com/in/jean-vitor-vieira-505203197/
 
-Este projeto é baseado ou contribui para:
-
-[jeanvitorvieira/cadastro-usuario](https://github.com/jeanvitorvieira/cadastro-usuario)
+E-mail:
+jeanvitorv0@gmail.com
