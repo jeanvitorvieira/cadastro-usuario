@@ -2,18 +2,22 @@ package com.javanauta.cadastro_usuario.business;
 
 import com.javanauta.cadastro_usuario.infrastructure.entities.Usuario;
 import com.javanauta.cadastro_usuario.infrastructure.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
 
     private final UsuarioRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository) {
+    public UsuarioService(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void salvarUsuario(Usuario usuario) {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         repository.saveAndFlush(usuario);
     }
 
@@ -39,6 +43,7 @@ public class UsuarioService {
                         usuario.getNome() :
                         usuarioEntity.getNome())
                 .id(usuarioEntity.getId())
+                .password(usuarioEntity.getPassword())
                 .build();
 
         repository.saveAndFlush(usuarioAtualizado);
