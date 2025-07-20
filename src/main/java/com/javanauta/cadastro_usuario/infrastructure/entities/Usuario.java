@@ -1,5 +1,6 @@
 package com.javanauta.cadastro_usuario.infrastructure.entities;
 
+import com.javanauta.cadastro_usuario.enums.Cargo;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,10 +30,15 @@ public class Usuario {
     @NotBlank(message = "O nome não pode estar em branco.")
     private String nome;
 
-    @Column(name = "password")
+    @Column(name = "senha")
     @NotBlank(message = "A senha não pode estar em branco.")
     @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$",
             message = "A senha deve conter pelo menos uma letra maiúscula, uma minúscula, um número, um caractere especial e não ter espaços em branco.")
-    private String password;
+    private String senha;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cargo")
+    private Cargo cargo;
+
 }
