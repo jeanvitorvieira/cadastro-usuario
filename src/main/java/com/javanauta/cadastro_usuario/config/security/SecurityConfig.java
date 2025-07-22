@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuario").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/usuario/**", "/usuario?**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/usuario", "/usuario/**", "/usuario?**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(org.springframework.security.config.Customizer.withDefaults())

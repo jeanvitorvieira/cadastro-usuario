@@ -1,6 +1,7 @@
 package com.javanauta.cadastro_usuario.controller;
 
 import com.javanauta.cadastro_usuario.business.UsuarioService;
+import com.javanauta.cadastro_usuario.dto.UsuarioUpdateDTO;
 import com.javanauta.cadastro_usuario.infrastructure.entities.Usuario;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,16 +42,16 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/email")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMINISTRADOR') or #id == authentication.principal.id")
     public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam String email) {
         usuarioService.deletarUsuarioPorEmail(email);
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or #id == authentication.principal.id")
-    public ResponseEntity<Usuario> atualizarUsuarioPorId(@PathVariable Integer id, @Valid @RequestBody Usuario usuario) {
-        Usuario usuarioAtualizado = usuarioService.atualizarUsuarioPorId(id, usuario);
+    @PreAuthorize("hasRole('ADMINISTRADOR') or #id == authentication.principal.id")
+    public ResponseEntity<Usuario> atualizarUsuarioPorId(@PathVariable Integer id, @Valid @RequestBody UsuarioUpdateDTO usuarioUpdateDTO) {
+        Usuario usuarioAtualizado = usuarioService.atualizarUsuarioPorId(id, usuarioUpdateDTO);
         return ResponseEntity.ok(usuarioAtualizado);
     }
 }

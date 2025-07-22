@@ -1,5 +1,6 @@
 package com.javanauta.cadastro_usuario.business;
 
+import com.javanauta.cadastro_usuario.dto.UsuarioUpdateDTO;
 import com.javanauta.cadastro_usuario.enums.Cargo;
 import com.javanauta.cadastro_usuario.exceptions.EmailAlreadyRegisteredException;
 import com.javanauta.cadastro_usuario.exceptions.ResourceNotFoundException;
@@ -59,30 +60,21 @@ public class UsuarioService {
         repository.delete(usuario);
     }
 
-    public Usuario atualizarUsuarioPorId(Integer id, Usuario usuario) {
+    public Usuario atualizarUsuarioPorId(Integer id, UsuarioUpdateDTO usuarioUpdateDTO) {
         Usuario usuarioEntity = repository.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado para edição."));
 
-        if (usuario.getEmail() != null && !usuario.getEmail().equals(usuarioEntity.getEmail())) {
-            if (repository.findByEmail(usuario.getEmail()).isPresent()) {
-                throw new EmailAlreadyRegisteredException("O novo e-mail '" + usuario.getEmail() + "' já está cadastrado para outro usuário.");
-            }
+        if (usuarioUpdateDTO.getNome() != null) {
+            usuarioEntity.setNome(usuarioUpdateDTO.getNome());
         }
 
-        Usuario usuarioAtualizado = Usuario
-                .builder()
-                .id(usuarioEntity.getId())
-                .nome(usuario.getNome() != null ?
-                        usuario.getNome() :
-                        usuarioEntity.getNome())
-                .email(usuario.getEmail() != null ?
-                        usuario.getEmail() :
-                        usuarioEntity.getEmail())
-                .senha(usuarioEntity.getSenha())
-                .cargo(usuarioEntity.getCargo())
-                .build();
+        if (usuarioUpdateDTO.getEmail() != null && !usuarioUpdateDTO.getEmail().equals(usuarioEntity.getEmail())) {
+            if (repository.findByEmail(usuarioUpdateDTO.getEmail()).isPresent()) {
+                throw new EmailAlreadyRegisteredException("O novo e-mail '" + usuarioUpdateDTO.getEmail() + "' já está cadastrado para outro usuário.");
+            }
+            usuarioEntity.setEmail(usuarioUpdateDTO.getEmail());
+        }
 
-        repository.saveAndFlush(usuarioAtualizado);
-        return usuarioEntity;
+        return repository.saveAndFlush(usuarioEntity);
     }
 }

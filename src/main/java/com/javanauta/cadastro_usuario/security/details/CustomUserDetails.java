@@ -21,7 +21,6 @@ public class CustomUserDetails implements UserDetails {
         this.id = usuario.getId();
         this.email = usuario.getEmail();
         this.senha = usuario.getSenha();
-        // Converte o papel do seu Usuario para uma lista de GrantedAuthority
         this.cargos = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + usuario.getCargo().name()));
     }
 
