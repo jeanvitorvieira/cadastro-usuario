@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -64,6 +65,23 @@ public class RestExceptionHandler {
         if (ex.getCause() != null) {
             errorMessage = ex.getCause().getMessage();
         }
+
+        ErrorDetails errorDetails = new ErrorDetails(
+                LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST.value(),
+                "Bad Request",
+                errorMessage,
+                request.getDescription(false)
+        );
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorDetails> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex, WebRequest request) {
+        log.error("handleMethodArgumentTypeMismatchException capturada: {}", ex.getMessage());
+        ex.getRequiredType();
+        String errorMessage = String.format("O valor '%s' fornecido para o parâmetro '%s' não é do tipo esperado '%s'.",
+                ex.getValue(), ex.getName(), ex.getRequiredType().getSimpleName());
 
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),
