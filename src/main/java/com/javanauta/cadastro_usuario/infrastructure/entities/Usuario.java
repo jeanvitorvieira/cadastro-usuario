@@ -20,7 +20,7 @@ import lombok.*;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(description = "ID único do usuário", example = "1")
     private Integer id;
 
@@ -35,7 +35,7 @@ public class Usuario {
     @Schema(description = "Nome completo do usuário", example = "Jean Vitor Vieira")
     private String nome;
 
-    @Column(name = "senha")
+    @Column(name = "senha", length = 255)
     @NotBlank(message = "A senha não pode estar em branco.")
     @Size(min = 8, message = "A senha deve ter no mínimo 8 caracteres.")
     @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$",
