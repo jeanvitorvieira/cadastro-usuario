@@ -104,7 +104,7 @@ public class UsuarioController {
             @ApiResponse(responseCode = "404", description = "Usuário não encontrado",
                     content = @Content(schema = @Schema(implementation = Object.class)))
     })
-    @PreAuthorize("hasRole('ADMINISTRADOR') or #id == authentication.principal.id")
+    @PreAuthorize("hasRole('ADMINISTRADOR') or authentication.principal.username == #email")
     public ResponseEntity<Void> deletarUsuarioPorEmail(@RequestParam String email) {
         log.warn("Recebida requisição DELETE para deletar usuário por e-mail (requer ADMIN): {}", email);
         usuarioService.deletarUsuarioPorEmail(email);
